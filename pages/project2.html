@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpatialGrid Collision System - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles//project.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="../pages/main.html" class="logo">drito256</a>
+            <a href="../pages/main.html" class="back-button">← Back to Portfolio</a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="project-header">
+            <div class="project-title-container">
+                <h1 class="project-title">SpatialGrid Collision System</h1>
+                <a href="https://github.com/drito256/collision_detection" target="_blank" rel="noopener noreferrer" class="github-link">
+                    <img src="../assets/images/github_white.png" alt="GitHub Repository" class="github-icon">
+                </a>
+            </div>
+            <p class="project-description">
+                An implementation of precise collision detection optimized by combining the Separating Axis Theorem (SAT) with hash-based spatial partitioning to improve performance.
+                This method enables efficient real time rendering and collision handling of large number of particles in complex scenes, under certain constraints.
+            </p>
+        </div>
+        <div class="content-grid">
+            <div class="tech-stack">
+                <h2 class="section-title">Tech Stack</h2>
+                <div class="tech-list">
+                    <span class="tech-item">OpenGL</span>
+                    <span class="tech-item">C++</span>
+                    <span class="tech-item">GLM</span>
+                    <span class="tech-item">GLFW</span>
+                </div>
+            </div>
+
+             <div class="screenshots-section">
+                <h2 class="section-title">Screenshots</h2>
+                <div class="screenshots-grid">
+                    <div class="screenshot-tile" onclick="openModal('modal1')">
+                        <span class="video-thumbnail">
+                            <video preload="metadata" muted>
+                                <source src="../assets/images/collision/vid1.mp4#t=0.1" type="video/mp4">
+                            </video>
+                            <div class="play-button-overlay">▶</div>
+                        </span>
+                    </div>
+                    <div class="screenshot-tile" onclick="openModal('modal2')">
+                        <span> 
+                            <img src="../assets/images/collision/pic1.png" alt="Homepage Screenshot">
+                        </span>
+                    </div>
+                    <div class="screenshot-tile" onclick="openModal('modal3')">
+                        <span> 
+                            <img src="../assets/images/collision/pic2.png" alt="Homepage Screenshot">
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="code-section">
+                <h2 class="section-title">Key Code Snippet</h2>
+                <div class="code-container">
+                    <pre class="code-snippet">
+
+
+    // function to find potential collision pairs
+    std::vector<std::pair<int, int>> SpatialGrid::find_collision_candidates(const std::vector<Particle> &vec){
+    std::vector<std::pair<int, int>> pairs;
+
+    clear_grid();
+    fill_grid(vec);
+
+    for(const auto& [cell_key, particles] : grid) {
+        glm::ivec3 coords = key_to_grid_coords(cell_key);
+
+        for(int dx = -1; dx <= 1; dx+=1) {
+            for(int dy = -1; dy <= 1; dy+=1) {
+                for(int dz = -1; dz <= 1; dz+=1) {
+                    glm::ivec3 neighbor_coords = coords + glm::ivec3(dx, dy, dz);
+                    int neighbor_key = get_cell_key_from_grid_coords(neighbor_coords);
+
+                    auto it = grid.find(neighbor_key);
+                    if(it != grid.end()) {
+                        // Check collisions between current cell and neighbor
+                        check_cell_pair_collisions(particles, it->second, vec, pairs);
+                    }
+                }
+            }
+        }
+    }
+
+    return pairs;
+
+                    </pre>
+                </div>
+            </div>
+
+            <div class="comments-section">
+                <h2 class="section-title">Project Comments</h2>
+                <div class="comments-text">
+                    <p>This project was written as a way to gain a basic understanding of how games may handle a large number of collisions. I used spatial grid partitioning based on hashes, which works well for uniformly distributed objects or particles. However, its advantages diminish when introducing non-uniformly distributed data or effects such as explosions or boids. For those cases, other data structures such as k-d trees or BVHs should be further explored.</p>
+<br>
+<p>Some of the key challenges and lessons learned from this project included mapping 3D coordinates to a hash map, understanding how the SAT algorithm works, and revisiting 3D transformations using GLM.</p>
+<br>
+<p>The next steps for this project could include implementing collision resolution (which I understand is much more complex than detection), creating visual effects upon detecting collisions, and replacing cubes with actual objects such as bullets, boids, and so on.</p>
+
+            </div>
+        </div>
+
+        <div class="back-to-portfolio">
+            <a href="../pages/main.html" class="back-portfolio-btn">← Back to Portfolio</a>
+        </div>
+    </div>
+
+    <!-- Modals for screenshots -->
+    <div id="modal1" class="modal" onclick="closeModal('modal1')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeModal('modal1')">&times;</button>
+        <video id="modal-video-1" controls preload="metadata" style="max-width: 100%; max-height: 70vh;">
+            <source src="../assets/images/collision/vid1.mp4" type="video/mp4">
+        </video>
+    </div>
+    </div>
+
+    <div id="modal2" class="modal" onclick="closeModal('modal2')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal2')">&times;</button>
+            <img src="../assets/images/collision/pic1.png" style="max-width: 100%; height: 100%;">
+        </div>
+    </div>
+
+    <div id="modal3" class="modal" onclick="closeModal('modal3')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal3')">&times;</button>
+            <img src="../assets/images/collision/pic2.png"  style="max-width: 100%; height: 100%;">
+        </div>
+    </div>
+
+    <script src="../scripts/project-modal.js"></script>
+    <script src="../scripts/project-main.js"></script>
+</body>
+</html>

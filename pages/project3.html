@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procedural Terrain Tesselation - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles//project.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="../pages/main.html" class="logo">drito256</a>
+            <a href="../pages/main.html" class="back-button">← Back to Portfolio</a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="project-header">
+            <div class="project-title-container">
+                <h1 class="project-title">Procedural Terrain Tesselation</h1>
+                <a href="https://github.com/drito256/proc_tesse" target="_blank" rel="noopener noreferrer" class="github-link">
+                    <img src="../assets/images/github_white.png" alt="GitHub Repository" class="github-icon">
+                </a>
+            </div>
+            <p class="project-description">
+                An interactive application that showcases procedurally generated terrains using Worley noise, allowing exploration of how different tessellation levels, distance functions and parameters affect the terrain’s detail and structure.
+            </p>
+        </div>
+
+        <div class="content-grid">
+            <div class="tech-stack">
+                <h2 class="section-title">Tech Stack</h2>
+                <div class="tech-list">
+                    <span class="tech-item">OpenGL</span>
+                    <span class="tech-item">C++</span>
+                    <span class="tech-item">GLM</span>
+                    <span class="tech-item">Dear ImGui</span>
+                    <span class="tech-item">GLFW</span>
+                </div>
+            </div>
+
+           <div class="screenshots-section">
+                <h2 class="section-title">Screenshots</h2>
+                <div class="screenshots-grid">
+                    <div class="screenshot-tile" onclick="openModal('modal1')">
+                        <span class="video-thumbnail">
+                            <video preload="metadata" muted>
+                                <source src="../assets/images/tesse/vid1.mp4#t=0.1" type="video/mp4">
+                            </video>
+                            <div class="play-button-overlay">▶</div>
+                        </span>
+                    </div>
+                    <div class="screenshot-tile" onclick="openModal('modal2')">
+                        <span> 
+                            <img src="../assets/images/tesse/sc1.png" alt="Homepage Screenshot">
+                        </span>
+                    </div>
+                    <div class="screenshot-tile" onclick="openModal('modal3')">
+                        <span> 
+                            <img src="../assets/images/tesse/sc2.png" alt="Homepage Screenshot">
+                        </span>
+                    </div>
+                    <div class="screenshot-tile" onclick="openModal('modal4')">
+                        <span> 
+                            <img src="../assets/images/tesse/sc3.png" alt="Homepage Screenshot">
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-section">
+                <h2 class="section-title">Key Code Snippet</h2>
+                <div class="code-container">
+                    <pre class="code-snippet">
+// Worley noise function used to generate
+   the terrain
+
+float worley_noise(float x, float y, int dist_function) { // dist_function [1,4]
+    int cellX = static_cast<int>(std::floor(x));
+    int cellY = static_cast<int>(std::floor(y));
+    float minDistance = 100;
+
+    for (int offsetX = -1; offsetX <= 1; ++offsetX) {
+        for (int offsetY = -1; offsetY <= 1; ++offsetY) {
+            int neighborX = cellX + offsetX;
+            int neighborY = cellY + offsetY;
+
+            auto [featureX, featureY] = getFeaturePoint(neighborX, neighborY);
+           
+            float distance;
+            switch(dist_function){
+                case 1:
+                distance = euclideanDistance(x, y, featureX, featureY);
+                break;
+                case 2:
+                distance = manhattanDistance(x, y, featureX, featureY);
+                break;
+                case 3:
+                distance = chebyshevDistance(x, y, featureX, featureY);
+                break;
+                case 4:
+                distance = minkowskiDistance(x, y, featureX, featureY);
+                break;
+
+                default:
+                distance = euclideanDistance(x, y, featureX, featureY);
+            };
+            minDistance = std::min(minDistance, distance);
+        }
+    }
+    return minDistance;
+}</pre>
+                </div>
+            </div>
+
+            <div class="comments-section">
+                <h2 class="section-title">Project Comments</h2>
+                <div class="comments-text">
+                    <p>The main purpose of this project was to learn the principles behind procedurally generated terrains: what tools are used to create them and how different LODs affect their overall appearance. The goal was not to generate realistic terrains, although that could also have been achieved by combining a few additional techniques.</p>
+                    <br> 
+                    <p>One of the first ideas for implementing terrain tessellation was to use tessellation shaders. However, this later proved to be a poor choice, since tessellation shaders do not provide additional geometry or detail along the Y axis — which is what you want when generating terrains with higher (vertical) detail. Instead, a more common method was used: generating an XZ grid of a specific resolution and offsetting the Y coordinates of the points using a noise function.</p> 
+                    <br> 
+                    <p>It is also worth pointing out how the effect of moving the terrain was created, as shown in the video above. Essentially, a copy of the XZ coordinates of the plane was kept and shifted in the desired direction, while the original XZ coordinates remained fixed. New Y offsets were then calculated based on the copied XZ coordinates. While this technique worked well enough for the scope of the project, I am not sure it would scale effectively to generate large, highly detailed terrains. That said, for larger terrains you probably wouldn’t need such a moving-terrain effect anyway.</p> 
+                    <br> 
+                    <p>The concept of procedural generation can be expanded far beyond terrains, and I believe there is tremendous potential here still waiting to be explored. Moreover, combining these techniques with more recent methods such as neural networks and GPT models could lead to fascinating results - something I hope to revisit in the future.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-to-portfolio">
+            <a href="../pages/main.html" class="back-portfolio-btn">← Back to Portfolio</a>
+        </div>
+    </div>
+
+      <!-- Modals for screenshots -->
+    <div id="modal1" class="modal" onclick="closeModal('modal1')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeModal('modal1')">&times;</button>
+        <video id="modal-video-1" controls preload="metadata" style="max-width: 100%; max-height: 70vh;">
+            <source src="../assets/images/tesse/vid1.mp4" type="video/mp4">
+        </video>
+    </div>
+    </div>
+
+    <div id="modal2" class="modal" onclick="closeModal('modal2')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal2')">&times;</button>
+            <img src="../assets/images/tesse/sc1.png" style="max-width: 100%; height: 100%;">
+        </div>
+    </div>
+
+    <div id="modal3" class="modal" onclick="closeModal('modal3')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal3')">&times;</button>
+            <img src="../assets/images/tesse/sc2.png"  style="max-width: 100%; height: 100%;">
+        </div>
+    </div>
+
+    <div id="modal4" class="modal" onclick="closeModal('modal4')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal4')">&times;</button>
+            <img src="../assets/images/tesse/sc3.png" style="max-width: 100%; height: 100%;">
+        </div>
+    </div>
+
+    <script src="../scripts/project-modal.js"></script>
+    <script src="../scripts/project-main.js"></script>
+</body>
+</html>

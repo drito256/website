@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaotic Attractor Visualization - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles//project.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="../pages/main.html" class="logo">drito256</a>
+            <a href="../pages/main.html" class="back-button">← Back to Portfolio</a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="project-header">
+            <div class="project-title-container">
+                <h1 class="project-title">Chaotic Attractor Visualization</h1>
+                <a href="https://github.com/drito256/chaotic_attractors" target="_blank" rel="noopener noreferrer" class="github-link">
+                    <img src="../assets/images/github_white.png" alt="GitHub Repository" class="github-icon">
+                </a>
+            </div>
+            <p class="project-description">
+                Interactive showcase that presents several well-known chaotic attractors from dynamical systems, including the Lorenz, Aizawa, Sprott, Chen, and others.
+                Each visualization demonstrates the complex, unpredictable behavior that arises from relatively simple nonlinear equations, offering insight into chaos theory and nonlinear dynamics.
+            </p>
+        </div>
+<!-- With the usage of __ numerical integration, attractor trajectories showed improved stability, enabling real-time exploration of the complex dynamics of these attractors under varying parameters.-->
+        <div class="content-grid">
+            <div class="tech-stack">
+                <h2 class="section-title">Tech Stack</h2>
+                <div class="tech-list">
+                    <span class="tech-item">OpenGL</span>
+                    <span class="tech-item">C++</span>
+                    <span class="tech-item">GLM</span>
+                    <span class="tech-item">Dear ImGui</span>
+                    <span class="tech-item">GLFW</span>
+                </div>
+            </div>
+
+            <div class="screenshots-section">
+                <h2 class="section-title">Screenshots</h2>
+                <div class="screenshots-grid">
+                    <div class="screenshot-tile" onclick="openModal('modal1')">
+                        <span class="video-thumbnail">
+                            <video preload="metadata" muted>
+                                <source src="../assets/images/chaotic/vid1.mp4#t=0.1" type="video/mp4">
+                            </video>
+                            <div class="play-button-overlay">▶</div>
+                        </span>
+                    </div>
+                    <div class="screenshot-tile" onclick="openModal('modal2')">
+                        <span> 
+                            <img src="../assets/images/chaotic/lorenz.png" alt="Homepage Screenshot">
+                        </span>
+                    </div>
+                    <div class="screenshot-tile" onclick="openModal('modal3')">
+                        <span> 
+                            <img src="../assets/images/chaotic/sprott.png" alt="Homepage Screenshot">
+                        </span>
+                    </div>
+                    <div class="screenshot-tile" onclick="openModal('modal4')">
+                        <span> 
+                            <img src="../assets/images/chaotic/four-wing.png" alt="Homepage Screenshot">
+                        </span>
+                    </div>
+                     <div class="screenshot-tile" onclick="openModal('modal5')">
+                        <span> 
+                            <img src="../assets/images/chaotic/halvorsen.png" alt="Homepage Screenshot">
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-section">
+                <h2 class="section-title">Key Code Snippet</h2>
+                <div class="code-container">
+                    <pre class="code-snippet">
+// function to update point position based 
+on chosen attractor, delta time and some constants using Runge-Kutta method
+
+glm::vec3 Point::update(int chosen_equation, float dt, float *constants, float delta) {
+    float x = this->x;
+    float y = this->y;
+    float z = this->z;
+
+    float h = dt * delta * 60.0f;
+
+    // RK4 stages
+    glm::vec3 k1 = compute_derivatives(chosen_equation, x, y, z, constants);
+    glm::vec3 k2 = compute_derivatives(chosen_equation, x + h * k1.x / 2, y + h * k1.y / 2, z + h * k1.z / 2, constants);
+    glm::vec3 k3 = compute_derivatives(chosen_equation, x + h * k2.x / 2, y + h * k2.y / 2, z + h * k2.z / 2, constants);
+    glm::vec3 k4 = compute_derivatives(chosen_equation, x + h * k3.x, y + h * k3.y, z + h * k3.z, constants);
+
+    glm::vec3 derivative = (k1 + 2.0f * k2 + 2.0f * k3 + k4) / 6.0f;
+
+    this->x += h * derivative.x;
+    this->y += h * derivative.y;
+    this->z += h * derivative.z;
+
+    return derivative;
+}
+</pre>
+                </div>
+            </div>
+
+            <div class="comments-section">
+                <h2 class="section-title">Project Comments</h2>
+                <div class="comments-text">
+                    <p>The idea behind this project was to become familiar with the concept of chaotic attractors and
+                    to see how different parameters impact their trajectories.</p>
+                    <br>
+                    <p>One of the key challenges included using numerical integration techniques, where initially Euler's
+                    method was used, but later it was replaced by Runge-Kutta which indeed did show improved solution stability for some of
+                    the attractors.
+                    Another challenge worth mentioning was rendering attractor trail and head (represented with
+                    triangle) using OpenGL. </p>
+                    <br>
+                    <p>It is important to note that some improvements could be made, such as GPU parallelization of trajectory calculations using CUDA or compute shaders. Even more importantly, the use of instancing would likely become the next bottleneck when rendering more trajectories.</p>
+                    <br>
+                    <p>All in all, I think this was a good project for exploring the basics of chaos theory and gaining a solid grasp of OpenGL fundamentals.</p>
+                   
+
+                </div>
+            </div>
+        </div>
+
+        <div class="back-to-portfolio">
+            <a href="../pages/main.html" class="back-portfolio-btn">← Back to Portfolio</a>
+        </div>
+    </div>
+
+    <!-- Modals for screenshots -->
+    <div id="modal1" class="modal" onclick="closeModal('modal1')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeModal('modal1')">&times;</button>
+        <video id="modal-video-1" controls preload="metadata" style="max-width: 100%; max-height: 70vh;">
+            <source src="../assets/images/chaotic/vid1.mp4" type="video/mp4">
+        </video>
+    </div>
+    </div>
+
+    <div id="modal2" class="modal" onclick="closeModal('modal2')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal2')">&times;</button>
+            <img src="../assets/images/chaotic/lorenz.png" style="max-width: 100%; height: 100%;">
+        </div>
+    </div>
+
+    <div id="modal3" class="modal" onclick="closeModal('modal3')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal3')">&times;</button>
+            <img src="../assets/images/chaotic/sprott.png"  style="max-width: 100%; height: 100%;">
+        </div>
+    </div>
+
+    <div id="modal4" class="modal" onclick="closeModal('modal4')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal4')">&times;</button>
+            <img src="../assets/images/chaotic/four-wing.png" style="max-width: 100%; height: 100%;">
+        </div>
+    </div>
+     <div id="modal5" class="modal" onclick="closeModal('modal5')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal5')">&times;</button>
+            <img src="../assets/images/chaotic/halvorsen.png" style="max-width: 100%; height: 100%;">
+        </div>
+    </div>
+
+    <script src="../scripts/project-modal.js"></script>
+    <script src="../scripts/project-main.js"></script>
+</body>
+</html>

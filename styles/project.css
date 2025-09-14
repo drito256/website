@@ -1,0 +1,431 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #0f0f0f;
+    color: #e5e5e5;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Navigation */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: #ffffff;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none;
+}
+
+.back-button {
+    background: linear-gradient(45deg, #333, #555);
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+}
+
+.back-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, #444, #666);
+}
+
+/* Main Content */
+.main-content {
+    padding: 6rem 1rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Project Header */
+.project-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+}
+
+.project-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.project-title {
+    font-size: 3rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.github-link {
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.github-link:hover {
+    transform: translateY(-2px);
+}
+
+.github-icon {
+    width: 32px;
+    height: 32px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.github-link:hover .github-icon {
+    opacity: 1;
+}
+
+.project-description {
+    font-size: 1.2rem;
+    color: #b0b0b0;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* Content Grid */
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+/* Tech Stack Section */
+.tech-stack {
+    background: #0f0f0f;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+}
+
+.tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.tech-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.tech-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Screenshots Section */
+.screenshots-section {
+    background: #0f0f0f;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+.screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.screenshot-tile {
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 0.9rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.screenshot-tile:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.screenshot-tile.expanded {
+    grid-column: 1 / -1;
+    aspect-ratio: auto;
+    min-height: 400px;
+}
+
+/* Code Snippet Section */
+.code-section {
+    background: #0f0f0f;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+.code-container {
+    background: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    overflow-x: auto;
+}
+
+.code-snippet {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: #e5e5e5;
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+/* Comments Section */
+.comments-section {
+    background: #0f0f0f;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+.comments-text {
+    color: #b0b0b0;
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-top: 1.5rem;
+}
+
+/* Back to Portfolio Button */
+.back-to-portfolio {
+    text-align: center;
+    margin: 3rem 0;
+}
+
+.back-portfolio-btn {
+    display: inline-block;
+    background: linear-gradient(45deg, #333, #555);
+    color: white;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-portfolio-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, #444, #666);
+}
+
+/* Modal for expanded screenshots */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    background: #1a1a1a;
+    border-radius: 10px;
+    padding: 2rem;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.modal-content img {
+    max-width: 100%;
+    max-height: 70vh; /* Limits height to 70% of viewport height */
+    height: auto;
+    width: auto;
+    display: block;
+    margin: 1rem 0;
+    border-radius: 5px;
+    object-fit: contain; /* Maintains aspect ratio */
+}
+
+.screenshot-tile span img {
+    width: 100%;
+    height: auto; /* Set a fixed height or use max-height */
+    object-fit: contain; /* This shows the entire image scaled down */
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    display: block;
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+
+
+.screenshot-tile span video {
+
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    pointer-events: none;
+}
+
+.play-button-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    pointer-events: none;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.project-header,
+.tech-stack,
+.screenshots-section,
+.code-section,
+.comments-section {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .main-content {
+        padding: 6rem 2rem 2rem;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .tech-stack {
+        grid-column: 1 / -1;
+    }
+
+    .screenshots-section {
+        grid-column: 1 / -1;
+    }
+
+    .screenshots-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .project-title {
+        font-size: 4rem;
+    }
+
+    .github-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .content-grid {
+        gap: 3rem;
+    }
+
+    .screenshots-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}

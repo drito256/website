@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">drito256</div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image" id="cubeContainer">
+                    <!-- Three.js canvas will be inserted here -->
+                    <div class="cube-text">vacuum got a hold of me</div>
+                </div>
+                <div class="about-text">
+                    <h2 class="section-header">About Me</h2>
+                    <p>Hi! I'm Dominik, a Computer Science Master's student with a primary interest in computer graphics and optimization, 
+                        but also a keen interest in software engineering across various domains. </p>
+                    <p>I enjoy transforming mathematical concepts into engaging visual experiences that blend art and science. 
+                        When I’m not coding, you’ll often find me climbing boulders, going for a run, or getting lost in a good book.</p>
+                    <p>Feel free to browse my projects and reach out if you want to collaborate or chat about software development, graphics programming, or anything tech-related!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+        <div class="container">
+            <h2 class="section-header">Featured Projects</h2>
+            <p class="section-subtitle">A selection of my recent work</p>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3 class = "project1_title">Chaotic Attractor Visualization</h3>
+                    <p>An OpenGL based application visualizing trajectories of well-known chaotic attractors such as Lorenz, Aizawa, Sprott etc. under varying parameters. </p>
+                    <a href="../pages/project1.html" class="project-link">View Project →</a>
+                </div>
+                <div class="project-card">
+                    <h3 class = "project2_title" >SpatialGrid Collision System</h3>
+                    <p>Optimizing precise collision detection using the SAT algorithm combined with hash-based spatial partitioning. </p>
+                    <a href="../pages/project2.html" class="project-link">View Project →</a>
+                </div>
+                <div class="project-card">
+                    <h3 class = "project3_title" >Procedural Terrain Tesselation</h3>
+                    <p>An interactive application demonstrating procedurally generated terrains created with Worley noise. </p>
+                    <a href="../pages/project3.html" class="project-link">View Project →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 2rem 0; background: #0f0f0f; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+        <div style="display: flex; justify-content: center; gap: 2rem;">
+            <a href="https://github.com/drito256" target="_blank" rel="noopener noreferrer">
+                <img src="../assets/images/github_white.png" alt="GitHub" style="width: 40px; height: 40px;">
+            </a>
+            <a href="https://www.linkedin.com/in/dominik-%C5%A1ari%C4%87-bb2411375/" target="_blank" rel="noopener noreferrer">
+                <img src="../assets/images/linkedin_white.png" alt="LinkedIn" style="width: 40px; height: 40px;">
+            </a>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="../scripts/three.js"></script>
+    <script src="../scripts/main.js"></script>
+</body>
+</html>
